@@ -23,8 +23,8 @@ function x = randicg()
 
 	% Xₙ₋₁
 	prevX = ICG_PREV_X;
-	% arbitrarily assumed multiplier and increment
-	a = 0.5; c = 0.7;
+	% randomly generated multiplier and increment
+	a = rand(); c = rand();
 	% modulus is 1 to make sure 0 ≤ Xₙ < 1
 	m = 1;
 
