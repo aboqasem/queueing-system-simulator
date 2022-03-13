@@ -3,7 +3,7 @@ global randfn;
 
 printf('Welcome to the simulator!\n\n');
 
-nPatients = str2num(getinput('Number of patients in this simulation: '));
+nPatients = str2num(getinput('Number of patients in this simulation: ', @(str) str2num(str) > 0));
 
 printf('---------------------------------------------------------------\n');
 printf('               Random Number Generation Type                   \n');
