@@ -9,3 +9,5 @@ printf('\n\n');
 initrandfn();
 
 [interarrivalTimes, interarrivalTimesRanges] = initinterarrivaltimesdata(5);
+
+kiosks = initkiosksdata(2, 5);
