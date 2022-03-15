@@ -12,4 +12,4 @@ interarrivalTimes = initinterarrivaltimesdata(5);
 
 kiosks = initkiosksdata(2, 5);
 
-patients = initpatientsdata(nPatients);
+patients = initpatientsdata(nPatients, interarrivalTimes);
