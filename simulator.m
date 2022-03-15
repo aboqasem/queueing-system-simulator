@@ -8,7 +8,7 @@ nPatients = str2num(getinput('Number of patients in this simulation: ', @(str) s
 
 initrandfn();
 
-[interarrivalTimes, interarrivalTimesRanges] = initinterarrivaltimesdata(5);
+interarrivalTimes = initinterarrivaltimesdata(5);
 
 kiosks = initkiosksdata(2, 5);
 
