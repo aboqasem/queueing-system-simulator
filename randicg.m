@@ -7,22 +7,22 @@
 % Xₙ is the positive remainder when we divide (a(Xₙ₋₁)⁻¹ + c) by m, thus; 0 ≤ Xₙ < m.
 
 function x = randicg()
-	% ICG_SEED is the starting value (X₀), ICG_PREV_X is Xₙ₋₁
-	global ICG_SEED ICG_PREV_X;
+	% the starting value (X₀)
+	persistent seed;
+	% Xₙ₋₁
+	persistent prevX;
 
 	% no seed means n is currently 0
-	if (~isset('ICG_SEED'))
+	if (~isset('seed'))
 		% random starting value
-		ICG_SEED = rand();
+		seed = rand();
 		% X₀ is the seed
-		x = ICG_SEED;
+		x = seed;
 
-		ICG_PREV_X = x;
+		prevX = x;
 		return;
 	end
 
-	% Xₙ₋₁
-	prevX = ICG_PREV_X;
 	% randomly generated multiplier and increment
 	a = rand(); c = rand();
 	% modulus is 1 to make sure 0 ≤ Xₙ < 1
@@ -31,5 +31,5 @@ function x = randicg()
 	% Xₙ = (a(Xₙ₋₁)⁻¹ + c) mod m
 	x = mod(a * (prevX ^ -1) + c, m);
 
-	ICG_PREV_X = x;
+	prevX = x;
 end
