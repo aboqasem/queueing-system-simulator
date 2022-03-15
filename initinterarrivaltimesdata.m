@@ -17,6 +17,8 @@ function [interarrivalTimes, interarrivalTimesRanges] = initinterarrivaltimesdat
 		interarrivalTimesRanges(i, 1) = round(((interarrivalTimesCdfs(i) - interarrivalTimesProbabilities(i)) + 0.01) * RN_MULTIPLIER);
 		interarrivalTimesRanges(i, 2) = round(interarrivalTimesCdfs(i) * RN_MULTIPLIER);
 	end 
+
+	printf('\n\n');
 	printf('                 Inter-Arrival Times Table                 \n');
 	printf('-----------------------------------------------------------\n');
 	printf('| Inter-Arrival Time | Probability | CDF    | Range       |\n');
