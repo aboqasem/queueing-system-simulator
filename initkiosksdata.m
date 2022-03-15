@@ -1,25 +1,61 @@
+% each kiosk is a struct and contains:
+% `serviceTimes` which is a struct that contains:
+%   `value` which is time in minutes
+%   `range` which is the range of random number that should be matched with the `value`
+% example of kiosks: [
+%   struct {
+%     'serviceTimes': [
+%       struct {
+%         'value': 1,
+%         'range': [1, 3],
+%       },
+%       struct {
+%         'value': 2,
+%         'range': [4, 20],
+%       },
+%       ...
+%     ],
+%   },
+%   ...
+% ]
 function kiosks = initkiosksdata(nKiosks, nServiceTimes)
 	global randfn;
 	global RN_MULTIPLIER;
 
 	for (iKiosk = 1:nKiosks)
 		Kiosk = struct(...
-			'serviceTimes', iKiosk:(nServiceTimes + iKiosk - 1),...
-			'serviceTimesRanges', [],...
+			'serviceTimes', [],...
 		);
+
+		% this should be `nServiceTimes` random numbers that sum to 1
 		serviceTimesProbabilities = [];
-		serviceTimesCdfs = [];
-  
-		for (i = 1:nServiceTimes)
-			% 1 ≤ probability ≤ RN_MULTIPLIER
-			serviceTimesProbabilities(i) = (randfn() + 0.01) * RN_MULTIPLIER;
+		% generate `nServiceTimes` random numbers
+		% example: [0.2 0.6]
+		for (iServiceTime = 1:nServiceTimes)
+			serviceTimesProbabilities(iServiceTime) = randfn();
 		end
-		sumServiceTimesProbabilities = sum(serviceTimesProbabilities);
-		for (i = 1:nServiceTimes)
-			serviceTimesProbabilities(i) = serviceTimesProbabilities(i) / sumServiceTimesProbabilities;
-			serviceTimesCdfs(i) = sum(serviceTimesProbabilities(1:i));
-			Kiosk.serviceTimesRanges(i, 1) = round(((serviceTimesCdfs(i) - serviceTimesProbabilities(i)) + 0.01) * RN_MULTIPLIER);
-			Kiosk.serviceTimesRanges(i, 2) = round(serviceTimesCdfs(i) * RN_MULTIPLIER);
+		% normalize the random numbers to sum to 1 by dividing by the sum
+		% example: [0.2 0.6] -> [0.2 0.6] / 0.8 = [0.25 0.75]
+		serviceTimesProbabilities = serviceTimesProbabilities / sum(serviceTimesProbabilities);
+
+		% this should be the cumulative sum of the probabilities
+		serviceTimesCdfs = [];
+		% example: [0.2 0.6] -> [0.2 0.8]
+		for (iServiceTime = 1:nServiceTimes)
+			serviceTimesCdfs(iServiceTime) = sum(serviceTimesProbabilities(1:iServiceTime));
+		end
+
+		% generate the kiosk's service times values with random number ranges, assume the time is from 1 + `iKiosk` to `nServiceTimes` + `iKiosk` minutes
+		for (iServiceTime = 1:nServiceTimes)
+			ServiceTime = struct(...
+				'value', iKiosk + iServiceTime - 1,...
+				'range', [...
+					round(((serviceTimesCdfs(iServiceTime) - serviceTimesProbabilities(iServiceTime)) + 0.01) * RN_MULTIPLIER),...
+					round(serviceTimesCdfs(iServiceTime) * RN_MULTIPLIER),...
+				],...
+			);
+
+			Kiosk.serviceTimes(iServiceTime) = ServiceTime;
 		end
   
 		kiosks(iKiosk) = Kiosk;
@@ -32,10 +68,10 @@ function kiosks = initkiosksdata(nKiosks, nServiceTimes)
 		for (iServiceTime = 1:nServiceTimes)
 			printf(...
 				'|      %d       | %11.2f | %6.2f | %11s |\n',...
-				Kiosk.serviceTimes(iServiceTime),... % Serice Time
+				Kiosk.serviceTimes(iServiceTime).value,... % Service Time
 				serviceTimesProbabilities(iServiceTime),... % Probability
 				serviceTimesCdfs(iServiceTime),... % CDF
-				sprintf('%3d - %3d', Kiosk.serviceTimesRanges(iServiceTime, 1), Kiosk.serviceTimesRanges(iServiceTime, 2))... % Range
+				sprintf('%3d - %3d', Kiosk.serviceTimes(iServiceTime).range(1), Kiosk.serviceTimes(iServiceTime).range(2))... % Range
 			);
 		end
 		printf('-----------------------------------------------------\n');
