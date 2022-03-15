@@ -1,5 +1,6 @@
 function kiosks = initkiosksdata(nKiosks, nServiceTimes)
 	global randfn;
+	global RN_MULTIPLIER;
 
 	for (iKiosk = 1:nKiosks)
 		Kiosk = struct(...
@@ -10,15 +11,15 @@ function kiosks = initkiosksdata(nKiosks, nServiceTimes)
 		serviceTimesCdfs = [];
   
 		for (i = 1:nServiceTimes)
-			% 1 ≤ probability ≤ 100
-			serviceTimesProbabilities(i) = (randfn() + 0.01) * 100;
+			% 1 ≤ probability ≤ RN_MULTIPLIER
+			serviceTimesProbabilities(i) = (randfn() + 0.01) * RN_MULTIPLIER;
 		end
 		sumServiceTimesProbabilities = sum(serviceTimesProbabilities);
 		for (i = 1:nServiceTimes)
 			serviceTimesProbabilities(i) = serviceTimesProbabilities(i) / sumServiceTimesProbabilities;
 			serviceTimesCdfs(i) = sum(serviceTimesProbabilities(1:i));
-			Kiosk.serviceTimesRanges(i, 1) = round(((serviceTimesCdfs(i) - serviceTimesProbabilities(i)) + 0.01) * 100);
-			Kiosk.serviceTimesRanges(i, 2) = round(serviceTimesCdfs(i) * 100);
+			Kiosk.serviceTimesRanges(i, 1) = round(((serviceTimesCdfs(i) - serviceTimesProbabilities(i)) + 0.01) * RN_MULTIPLIER);
+			Kiosk.serviceTimesRanges(i, 2) = round(serviceTimesCdfs(i) * RN_MULTIPLIER);
 		end
   
 		kiosks(iKiosk) = Kiosk;

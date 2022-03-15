@@ -1,5 +1,6 @@
 % Random function to be picked by the user
 global randfn;
+global RN_MULTIPLIER; RN_MULTIPLIER = 100;
 
 printf('Welcome to the simulator!\n\n');
 
