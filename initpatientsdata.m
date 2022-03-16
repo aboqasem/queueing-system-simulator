@@ -27,11 +27,11 @@ function patients = initpatientsdata(nPatients, interarrivalTimes)
 
 	for (iPatient = 1:nPatients)
 		Patient = struct(...
-			'interarrivalTimeRn', NaN,... % first patient does not have interarrival time
+			'interarrivalTimeRn', NaN,... % first patient does not have interarrival time, for other patients to be genrated below
 			'serviceTimeRn', round((randfn() + 0.01) * RN_MULTIPLIER),...
-			'interarrivalTime', NaN,... % to be determined below
-			'serviceTime', NaN,... % to be determined when the patient is assigned to a kiosk
-			'arrivalTime', 0,... % first patient arrives at time 0
+			'interarrivalTime', NaN,... % to be determined below from the interarrival time random number
+			'serviceTime', NaN,... % to be determined when the patient is assigned to a kiosk later in the simulator
+			'arrivalTime', 0,... % first patient arrives at time 0, for other patients to be computed below
 		);
 		% generate random number for interarrival time only if it is not the first patient
 		if (iPatient ~= 1)
