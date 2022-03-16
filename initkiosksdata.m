@@ -40,7 +40,7 @@ function kiosks = initkiosksdata(nKiosks, nServiceTimes)
 
 		% this should be the cumulative sum of the probabilities
 		serviceTimesCdfs = [];
-		% example: [0.2 0.6] -> [0.2 0.8]
+		% example: [0.25 0.75] -> [0.25 1.00]
 		for (iServiceTime = 1:nServiceTimes)
 			serviceTimesCdfs(iServiceTime) = sum(serviceTimesProbabilities(1:iServiceTime));
 		end

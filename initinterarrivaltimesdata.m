@@ -29,7 +29,7 @@ function interarrivalTimes = initinterarrivaltimesdata(nInterarrivalTimes)
 
 	% this should be the cumulative sum of the probabilities
 	interarrivalTimesCdfs = [];
-	% example: [0.2 0.6] -> [0.2 0.8]
+	% example: [0.25 0.75] -> [0.25 1.00]
 	for (iInterarrivalTime = 1:nInterarrivalTimes)
 		interarrivalTimesCdfs(iInterarrivalTime) = sum(interarrivalTimesProbabilities(1:iInterarrivalTime));
 	end
