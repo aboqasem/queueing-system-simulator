@@ -3,18 +3,21 @@
 % `serviceTimeRn`: random number generated for service time
 % `interarrivalTime`: interarrival time that is determined by the random number
 % `serviceTime`: service time that is determined by the random number
+% `arrivalTime`: arrival time of the patient, computed from the currept patient's interarrival time and previous patient's arrival time
 % example of patients: [
 %   struct {
 %     'interarrivalTimeRn': NaN,
 %     'serviceTimeRn': 78,
 %     'interarrivalTime': NaN,
 %     'serviceTime': NaN,
+%     'arrivalTime': 0,
 %   },
 %   struct {
 %     'interarrivalTimeRn': 13,
 %     'serviceTimeRn': 95,
 %     'interarrivalTime': 1,
 %     'serviceTime': NaN,
+%     'arrivalTime': 1,
 %   },
 %   ...
 % ]
@@ -28,6 +31,7 @@ function patients = initpatientsdata(nPatients, interarrivalTimes)
 			'serviceTimeRn', round((randfn() + 0.01) * RN_MULTIPLIER),...
 			'interarrivalTime', NaN,... % to be determined below
 			'serviceTime', NaN,... % to be determined when the patient is assigned to a kiosk
+			'arrivalTime', 0,... % first patient arrives at time 0
 		);
 		% generate random number for interarrival time only if it is not the first patient
 		if (iPatient ~= 1)
@@ -37,13 +41,15 @@ function patients = initpatientsdata(nPatients, interarrivalTimes)
 		patients(iPatient) = Patient;
 	end
 
-	% determine interarrival times for patients
+	% determine interarrival and arrival times for patients
 	for (iPatient = 2:nPatients) 
 		for (iInterarrivalTime = 1:length(interarrivalTimes))
 			InterarrivalTime = interarrivalTimes(iInterarrivalTime);
 			% if the random number is in the range of the current interarrival time's range then match it
 			if (patients(iPatient).interarrivalTimeRn >= InterarrivalTime.range(1) && patients(iPatient).interarrivalTimeRn <= InterarrivalTime.range(2))
 				patients(iPatient).interarrivalTime = InterarrivalTime.value;
+				% compute arrival time from interarrival time and previous patient's arrival time
+				patients(iPatient).arrivalTime = patients(iPatient - 1).arrivalTime + patients(iPatient).interarrivalTime;
 				break;
 			end
 		end
