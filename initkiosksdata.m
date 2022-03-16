@@ -18,11 +18,12 @@
 %   },
 %   ...
 % ]
-function kiosks = initkiosksdata(nKiosks, nServiceTimes)
+function kiosks = initkiosksdata(nServiceTimes)
 	global randfn;
 	global RN_MULTIPLIER;
 
-	for (iKiosk = 1:nKiosks)
+	% initialize 2 kiosks
+	for (iKiosk = 1:2)
 		Kiosk = struct(...
 			'serviceTimes', [],...
 		);

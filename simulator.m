@@ -10,6 +10,6 @@ initrandfn();
 
 interarrivalTimes = initinterarrivaltimesdata(5);
 
-kiosks = initkiosksdata(2, 5);
+kisoks = initkiosksdata(5);
 
 patients = initpatientsdata(nPatients, interarrivalTimes);
