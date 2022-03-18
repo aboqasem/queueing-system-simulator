@@ -15,3 +15,5 @@ kisoks = initkiosksdata(5);
 patients = initpatientsdata(nPatients, interarrivalTimes);
 
 assignpatientstokiosks(patients, kisoks);
+
+displaysimulationresults(patients);
