@@ -2,6 +2,7 @@
 % `serviceTimes` which is a struct that contains:
 %   `value` which is time in minutes
 %   `range` which is the range of random number that should be matched with the `value`
+% `patientsNos` which is an array of indices of patients that are served by this kiosk
 % example of kiosks: [
 %   struct {
 %     'serviceTimes': [
@@ -15,6 +16,7 @@
 %       },
 %       ...
 %     ],
+%     'patientsNos': [],
 %   },
 %   ...
 % ]
@@ -26,6 +28,7 @@ function kiosks = initkiosksdata(nServiceTimes)
 	for (iKiosk = 1:2)
 		Kiosk = struct(...
 			'serviceTimes', [],...
+			'patientsNos', [],...
 		);
 
 		% this should be `nServiceTimes` random numbers that sum to 1

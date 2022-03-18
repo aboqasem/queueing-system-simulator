@@ -13,3 +13,5 @@ interarrivalTimes = initinterarrivaltimesdata(5);
 kisoks = initkiosksdata(5);
 
 patients = initpatientsdata(nPatients, interarrivalTimes);
+
+assignpatientstokiosks(patients, kisoks);
