@@ -61,9 +61,9 @@ function kiosks = initkiosksdata(nServiceTimes)
 
 			Kiosk.serviceTimes(iServiceTime) = ServiceTime;
 		end
-  
+	
 		kiosks(iKiosk) = Kiosk;
-  
+	
 		printf('\n\n');
 		printf('            Kiosk %d Service Times Table             \n', iKiosk);
 		printf('-----------------------------------------------------\n');
