@@ -2,7 +2,7 @@
 global randfn;
 global RN_MULTIPLIER; RN_MULTIPLIER = 100;
 
-printf('Welcome to the simulator!\n\n\n');
+printf('Welcome to Quik Queueing System Simulator!\n\n\n');
 
 nPatients = str2num(getinput('Number of patients in this simulation: ', @(str) all(isdigit(str)) && str2num(str) > 0));
 nKiosks = str2num(getinput('Number of kiosks in this simulation: ', @(str) all(isdigit(str)) && str2num(str) > 0));

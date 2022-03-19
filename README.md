@@ -1,4 +1,4 @@
-# Queueing System Simulator
+# Quik Queueing System Simulator
 
 Queueing system simulator using [FreeMat](http://freemat.sourceforge.net/).
 
