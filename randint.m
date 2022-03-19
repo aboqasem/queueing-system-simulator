@@ -1,9 +1,6 @@
 % genrate random integer that is in [min, max] (both inclusive)
 function x = randint(min, max)
 	global randfn;
-	if (~isset('randfn'))
-		randfn = @rand;
-	end
 
 	if (~isset('min') || IsNaN(min) || IsInf(min))
 		min = 0;
