@@ -14,6 +14,7 @@ function displaysimulationresults(patients)
 	end
 
 	printf('\n\n');
+	printf('Simulation Results:\n');
 	printf('------------------------------------------------------------------------------------------------------------------------------\n');
 	printf('|                                                  |          Kiosk 1        |          Kiosk 2        |                     |\n');
 	printf('------------------------------------------------------------------------------------------------------------------------------\n');
@@ -41,4 +42,12 @@ function displaysimulationresults(patients)
 		printf(' %9d | %7d |\n', Patient.waitingTime, Patient.timeSpent);
 	end
 	printf('------------------------------------------------------------------------------------------------------------------------------\n');
+
+	printf('\n\n');
+	printf('Simulation Results Evaluation:\n');
+	printf('- Average waiting time                   : %5.2f minutes\n', mean([patients.waitingTime]));
+	printf('- Average time spent                     : %5.2f minutes\n', mean([patients.timeSpent]));
+	printf('- Average service time of Kiosk#1        : %5.2f minutes\n', mean([patients(find([patients.kioskNo] == 1)).serviceTime]));
+	printf('- Average service time of Kiosk#2        : %5.2f minutes\n', mean([patients(find([patients.kioskNo] == 2)).serviceTime]));
+	printf('- Probabilty of patient waiting in queue : %5.2f %%\n', (length(find([patients.waitingTime] ~= 0)) / nPatients) * 100);
 end
