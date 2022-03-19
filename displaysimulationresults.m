@@ -1,6 +1,7 @@
 function displaysimulationresults(patients, kiosks)
 	nPatients = length(patients);
 	nKiosks = length(kiosks);
+	maxPrintKiosks = 4;
 
 	for (iPatient = 1:nPatients)
 		Patient = patients(iPatient);
@@ -18,24 +19,34 @@ function displaysimulationresults(patients, kiosks)
 	printf('Simulation Results:\n');
 
 	seperator = '--------------------------------------------------------------------------';
-	for (iKiosk = 1:nKiosks)
-		seperator = sprintf('%s--------------------------', seperator);
+	if (nKiosks <= maxPrintKiosks)
+		for (iKiosk = 1:nKiosks)
+			seperator = sprintf('%s--------------------------', seperator);
+		end
+	else
+		seperator = sprintf('%s-------------------------------------', seperator);
 	end
 	seperator = sprintf('%s\n', seperator);
 
 	printf(seperator);
 
-	printf('|                                                  |');
-	for (iKiosk = 1:nKiosks)
-		printf('         Kiosk %2d        |', iKiosk);
-	end
-	printf('                     |\n');
+	if (nKiosks <= maxPrintKiosks)
+		printf('|                                                  |');
+		for (iKiosk = 1:nKiosks)
+			printf('         Kiosk %2d        |', iKiosk);
+		end
+		printf('                     |\n');
 
-	printf(seperator);
+		printf(seperator);
+	end
 
 	printf('| Patient No | Interarrival T | Arrival T | Srvc T |');
-	for (iKiosk = 1:nKiosks)
-		printf(' Srvc Begins | Srvc Ends |');
+	if (nKiosks <= maxPrintKiosks)
+		for (iKiosk = 1:nKiosks)
+			printf(' Srvc Begins | Srvc Ends |');
+		end
+	else
+		printf(' Kiosk No | Srvc Begins | Srvc Ends |');
 	end
 	printf(' Waiting T | T Spent |\n');
 
@@ -54,13 +65,17 @@ function displaysimulationresults(patients, kiosks)
 
 		printf(' %9d | %6d |', Patient.arrivalTime, Patient.serviceTime);
 
-		for (iKiosk = 1:nKiosks)
-			Kiosk = kiosks(iKiosk);
-			if (iKiosk == Patient.kioskNo)
-				printf(' %11d | %9d |', Patient.serviceBeginTime, Patient.serviceEndTime);
-			else
-				printf(' %11s | %9s |', '', '');
+		if (nKiosks <= maxPrintKiosks)
+			for (iKiosk = 1:nKiosks)
+				Kiosk = kiosks(iKiosk);
+				if (iKiosk == Patient.kioskNo)
+					printf(' %11d | %9d |', Patient.serviceBeginTime, Patient.serviceEndTime);
+				else
+					printf(' %11s | %9s |', '', '');
+				end
 			end
+		else
+			printf(' %8d | %11d | %9d |', Patient.kioskNo, Patient.serviceBeginTime, Patient.serviceEndTime);
 		end
 
 		printf(' %9d | %7d |\n', Patient.waitingTime, Patient.timeSpent);
