@@ -5,15 +5,16 @@ global RN_MULTIPLIER; RN_MULTIPLIER = 100;
 printf('Welcome to the simulator!\n\n\n');
 
 nPatients = str2num(getinput('Number of patients in this simulation: ', @(str) str2num(str) > 0));
+nKiosks = str2num(getinput('Number of kiosks in this simulation: ', @(str) str2num(str) > 0));
 
 initrandfn();
 
 interarrivalTimes = initinterarrivaltimesdata(5);
 
-kisoks = initkiosksdata(5);
+kiosks = initkiosksdata(nKiosks, 5);
 
 patients = initpatientsdata(nPatients, interarrivalTimes);
 
-assignpatientstokiosks(patients, kisoks);
+assignpatientstokiosks(patients, kiosks);
 
-displaysimulationresults(patients);
+displaysimulationresults(patients, kiosks);

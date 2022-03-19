@@ -1,7 +1,7 @@
 function assignpatientstokiosks(&patients, &kiosks)
 	global randfn;
 	nPatients = length(patients);
-	nKiosks = 2;
+	nKiosks = length(kiosks);
 
 	printf('\n\n');
 	printf('---------------------------------------------------------------\n');
@@ -16,7 +16,7 @@ function assignpatientstokiosks(&patients, &kiosks)
 	for (iPatient = 1:nPatients)
 		% Round robin
 		if (strcmp(wlr, '1'))
-			patients(iPatient).kioskNo = mod(iPatient + 1, nKiosks) + 1;
+			patients(iPatient).kioskNo = mod(iPatient - 1, nKiosks) + 1;
 
 		% Idle kiosk, otherwise first kiosk
 		elseif (strcmp(wlr, '2'))
