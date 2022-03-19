@@ -14,11 +14,11 @@ function displaysimulationresults(patients)
   end
 
   printf('\n\n');
-  printf('--------------------------------------------------------------------------------------------------------------------\n');
-  printf('|                                                  |          Kiosk 1        |          Kiosk 2        |           |\n');
-  printf('--------------------------------------------------------------------------------------------------------------------\n');
-  printf('| Patient No | Interarrival T | Arrival T | Srvc T | Srvc Begins | Srvc Ends | Srvc Begins | Srvc Ends | Waiting T |\n');
-  printf('--------------------------------------------------------------------------------------------------------------------\n');
+  printf('------------------------------------------------------------------------------------------------------------------------------\n');
+  printf('|                                                  |          Kiosk 1        |          Kiosk 2        |                     |\n');
+  printf('------------------------------------------------------------------------------------------------------------------------------\n');
+  printf('| Patient No | Interarrival T | Arrival T | Srvc T | Srvc Begins | Srvc Ends | Srvc Begins | Srvc Ends | Waiting T | T Spent |\n');
+  printf('------------------------------------------------------------------------------------------------------------------------------\n');
   for (iPatient = 1:nPatients)
     Patient = patients(iPatient);
 
@@ -38,7 +38,7 @@ function displaysimulationresults(patients)
       printf(' %11s | %9s | %11d | %9d |', '', '', Patient.serviceBeginTime, Patient.serviceEndTime);
     end
 
-    printf(' %9d |\n', Patient.waitingTime);
+    printf(' %9d | %7d |\n', Patient.waitingTime, Patient.timeSpent);
   end
-  printf('--------------------------------------------------------------------------------------------------------------------\n');
+  printf('------------------------------------------------------------------------------------------------------------------------------\n');
 end

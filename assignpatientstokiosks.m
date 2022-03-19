@@ -58,6 +58,7 @@ function assignpatientstokiosks(&patients, &kiosks)
 
 				patients(iPatient).serviceEndTime = patients(iPatient).serviceBeginTime + patients(iPatient).serviceTime;
 				patients(iPatient).waitingTime = patients(iPatient).serviceBeginTime - patients(iPatient).arrivalTime;
+				patients(iPatient).timeSpent = patients(iPatient).serviceEndTime - patients(iPatient).arrivalTime;
 				break;
 			end
 		end
