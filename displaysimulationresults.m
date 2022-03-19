@@ -1,6 +1,18 @@
 function displaysimulationresults(patients)
   nPatients = length(patients);
 
+  for (iPatient = 1:nPatients)
+    Patient = patients(iPatient);
+    printf('\n\n');
+		printf('Patient %d arrives at minute %d\n', iPatient, Patient.arrivalTime);
+		printf('Patient %d is assigned to Kiosk#%d\n', iPatient, Patient.kioskNo);
+		if (Patient.waitingTime ~= 0)
+			printf('Patient %d waits in queue for %d minutes\n', iPatient, Patient.waitingTime);
+		end
+		printf('Patient %d gets service at minute %d\n', iPatient, Patient.serviceBeginTime);
+		printf('Patient %d leaves at minute %d\n', iPatient, Patient.serviceEndTime);
+  end
+
   printf('\n\n');
   printf('--------------------------------------------------------------------------------------------------------------------\n');
   printf('|                                                  |          Kiosk 1        |          Kiosk 2        |           |\n');
