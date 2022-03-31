@@ -88,7 +88,12 @@ function displaysimulationresults(patients, kiosks)
 	printf('- Average waiting time                   : %5.2f minutes\n', mean([patients.waitingTime]));
 	printf('- Average time spent                     : %5.2f minutes\n', mean([patients.timeSpent]));	
 	for (iKiosk = 1:nKiosks)
-		printf('- Average service time of Kiosk %2d       : %5.2f minutes\n', iKiosk, mean([patients(find([patients.kioskNo] == iKiosk)).serviceTime]));
+		meanServiceTime = mean([patients(find([patients.kioskNo] == iKiosk)).serviceTime]);
+		if (IsNaN(meanServiceTime))
+			printf('- Average service time of Kiosk %2d       : N/A\n', iKiosk);
+		else
+			printf('- Average service time of Kiosk %2d       : %5.2f minutes\n', iKiosk, meanServiceTime);
+		end
 	end
 	printf('- Probabilty of patient waiting in queue : %5.2f %%\n', (length(find([patients.waitingTime] ~= 0)) / nPatients) * 100);
 end
