@@ -4,7 +4,7 @@ global RN_MULTIPLIER; RN_MULTIPLIER = 100;
 
 printf('Welcome to Quik Queueing System Simulator!\n\n\n');
 
-nPatients = str2num(getinput('Number of patients in this simulation: ', @(str) all(isdigit(str)) && str2num(str) > 0));
+nCustomers = str2num(getinput('Number of customers in this simulation: ', @(str) all(isdigit(str)) && str2num(str) > 0));
 nKiosks = str2num(getinput('Number of kiosks in this simulation: ', @(str) all(isdigit(str)) && str2num(str) > 0));
 
 initrandfn();
@@ -13,8 +13,8 @@ interarrivalTimes = initinterarrivaltimesdata(5);
 
 kiosks = initkiosksdata(nKiosks, 5);
 
-patients = initpatientsdata(nPatients, interarrivalTimes);
+customers = initcustomersdata(nCustomers, interarrivalTimes);
 
-assignpatientstokiosks(patients, kiosks);
+assigncustomerstokiosks(customers, kiosks);
 
-displaysimulationresults(patients, kiosks);
+displaysimulationresults(customers, kiosks);
